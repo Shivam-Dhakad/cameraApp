@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private var isFrontCamera = false
     private var flashMode = ImageCapture.FLASH_MODE_OFF
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,27 +50,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         // set on click listener for the button of capture photo
-        // it calls a method which is implemented below
         findViewById<ImageButton>(R.id.camera_capture_button).setOnClickListener {
             takePhoto()
-
         }
 
         // set on click listener for the switch camera button
         findViewById<ImageButton>(R.id.switch_camera_button).setOnClickListener {
             toggleCamera()
         }
-
+        // set on click listener for the flash light button
         findViewById<ImageButton>(R.id.flash_toggle_button).setOnClickListener {
             toggleFlash()
         }
 
-
-
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-
 
     }
 
@@ -98,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -113,11 +107,11 @@ class MainActivity : AppCompatActivity() {
 
         // Apply the click animation to the capture button
         val captureButton = findViewById<ImageButton>(R.id.camera_capture_button)
-        val captureButton1 = findViewById<androidx.camera.view.PreviewView>(R.id.viewFinder)
+        val blink = findViewById<androidx.camera.view.PreviewView>(R.id.viewFinder)
         val clickAnimation = AnimationUtils.loadAnimation(this, R.anim.button_click)
         captureButton.startAnimation(clickAnimation)
-        val clickAnimation1 = AnimationUtils.loadAnimation(this, R.anim.blink)
-        captureButton1.startAnimation(clickAnimation1)
+        val blinkAnimation = AnimationUtils.loadAnimation(this, R.anim.blink)
+        blink.startAnimation(blinkAnimation)
 
         // Set up image capture listener,
         // which is triggered after the photo has been taken
@@ -137,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                     findViewById<ImageView>(R.id.iv_capture).setImageURI(savedUri)
 
                     val msg = "Photo capture succeeded: $savedUri"
-                   // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+                    // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
                     Log.d(TAG, msg)
                 }
             })
@@ -194,8 +188,6 @@ class MainActivity : AppCompatActivity() {
         startCamera()
 
     }
-
-
 
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
