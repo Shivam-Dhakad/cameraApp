@@ -1,4 +1,4 @@
-package com.example.cameraapp
+package com.ShivamDhakad.cameraapp
 
 import android.Manifest
 import android.content.pm.PackageManager
