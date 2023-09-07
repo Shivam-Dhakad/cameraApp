@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                     findViewById<ImageView>(R.id.iv_capture).setImageURI(savedUri)
 
                     val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+                   // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
                     Log.d(TAG, msg)
                 }
             })
