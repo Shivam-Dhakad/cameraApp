@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 
 class MainActivity : AppCompatActivity() {
