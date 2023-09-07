@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+
 class MainActivity : AppCompatActivity() {
 
     private var imageCapture: ImageCapture? = null
@@ -32,12 +33,9 @@ class MainActivity : AppCompatActivity() {
     private var flashMode = ImageCapture.FLASH_MODE_OFF
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
         // hide the action bar
         supportActionBar?.hide()
@@ -59,28 +57,15 @@ class MainActivity : AppCompatActivity() {
         // set on click listener for the switch camera button
         findViewById<ImageButton>(R.id.switch_camera_button).setOnClickListener {
             toggleCamera()
-
-
-
         }
 
         findViewById<ImageButton>(R.id.flash_toggle_button).setOnClickListener {
             toggleFlash()
         }
 
-
-
-
-
-
-
-
-
-
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
-
 
     private fun toggleFlash() {
         val cameraCaptureButton = findViewById<ImageButton>(R.id.flash_toggle_button)
@@ -103,10 +88,6 @@ class MainActivity : AppCompatActivity() {
         }
         cameraCaptureButton.setImageResource(flashIconResource)
     }
-
-
-
-
 
     private fun takePhoto() {
         // Get a stable reference of the modifiable image capture use case
@@ -145,14 +126,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
-
-
-
-
-
-
-
-
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -200,7 +173,6 @@ class MainActivity : AppCompatActivity() {
         startCamera()
     }
 
-
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
@@ -221,7 +193,8 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (permissions.size == grantResults.size) {
-                val allPermissionsGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+                val allPermissionsGranted =
+                    grantResults.all { it == PackageManager.PERMISSION_GRANTED }
                 if (allPermissionsGranted) {
                     startCamera()
                 } else {
