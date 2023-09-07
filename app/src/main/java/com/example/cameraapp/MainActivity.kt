@@ -23,6 +23,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         // it calls a method which is implemented below
         findViewById<ImageButton>(R.id.camera_capture_button).setOnClickListener {
             takePhoto()
+
         }
 
         // set on click listener for the switch camera button
@@ -63,8 +66,13 @@ class MainActivity : AppCompatActivity() {
             toggleFlash()
         }
 
+
+
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+
+
     }
 
     private fun toggleFlash() {
@@ -103,6 +111,14 @@ class MainActivity : AppCompatActivity() {
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
             .build()
 
+        // Apply the click animation to the capture button
+        val captureButton = findViewById<ImageButton>(R.id.camera_capture_button)
+        val captureButton1 = findViewById<androidx.camera.view.PreviewView>(R.id.viewFinder)
+        val clickAnimation = AnimationUtils.loadAnimation(this, R.anim.button_click)
+        captureButton.startAnimation(clickAnimation)
+        val clickAnimation1 = AnimationUtils.loadAnimation(this, R.anim.blink)
+        captureButton1.startAnimation(clickAnimation1)
+
         // Set up image capture listener,
         // which is triggered after the photo has been taken
         imageCapture.takePicture(
@@ -126,6 +142,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
+
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -169,9 +186,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toggleCamera() {
+        // Apply the rotation animation to the switch camera button
+        val switchCameraButton = findViewById<ImageButton>(R.id.switch_camera_button)
+        val rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_animation)
+        switchCameraButton.startAnimation(rotateAnimation)
         isFrontCamera = !isFrontCamera
         startCamera()
+
     }
+
+
+
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
