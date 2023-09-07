@@ -65,10 +65,10 @@
 
     <ImageButton
         android:id="@+id/flash_toggle_button"
-        android:layout_width="30dp"
-        android:layout_height="28dp"
+        android:layout_width="25dp"
+        android:layout_height="23dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
         android:elevation="2dp"
         android:scaleType="fitCenter"
@@ -80,7 +80,7 @@
         android:id="@+id/viewFinder"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="65dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/camera_capture_button"
         app:layout_constraintHorizontal_bias="0.0"
